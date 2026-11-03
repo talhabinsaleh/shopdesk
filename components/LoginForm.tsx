@@ -13,10 +13,10 @@ const DEMOS = [
   { label: "Customer", email: "customer@shopdesk.demo", password: "Ledger-Buyer-8302" },
 ];
 
-export default function LoginForm({ redirectTo, googleEnabled }: { redirectTo: string; googleEnabled: boolean }) {
+export default function LoginForm({ redirectTo, googleEnabled, initialError = "" }: { redirectTo: string; googleEnabled: boolean; initialError?: string }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(initialError);
   const [busy, setBusy] = useState(false);
 
   async function submit(event: FormEvent) {

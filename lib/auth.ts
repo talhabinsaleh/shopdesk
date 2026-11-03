@@ -13,6 +13,11 @@ export const auth = betterAuth({
     enabled: true,
     minPasswordLength: 6,
   },
+  account: {
+    // Someone who first registered with a password can later use "Continue with Google" with the
+    // same email. Google confirms the person owns that address, so the two logins join into one account.
+    accountLinking: { enabled: true, trustedProviders: ["google"] },
+  },
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",

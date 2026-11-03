@@ -3,13 +3,19 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { signIn } from "@/lib/auth-client";
+import { withRedirect } from "@/lib/return-path";
 
 export default function GoogleButton({ callbackURL }: { callbackURL: string }) {
   const [busy, setBusy] = useState(false);
 
   async function start() {
     setBusy(true);
-    const { error } = await signIn.social({ provider: "google", callbackURL });
+    const { error } = await signIn.social({
+      provider: "google",
+      callbackURL,
+      // A failed Google sign in comes back to the login page with an "error" code to explain
+      errorCallbackURL: withRedirect("/login", callbackURL),
+    });
     if (error) {
       toast.error(error.message ?? "Google sign in is not available right now.");
       setBusy(false);
