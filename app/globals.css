@@ -1,0 +1,172 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: false;
+}
+
+/* Market paper: warm white, deep leaf green and a marigold accent */
+@plugin "daisyui/theme" {
+  name: "shopdesk-light";
+  default: true;
+  color-scheme: light;
+  --color-base-100: #fcfbf7;
+  --color-base-200: #f3f1e9;
+  --color-base-300: #e2dfd2;
+  --color-base-content: #1b2420;
+  --color-primary: #0f6b4f;
+  --color-primary-content: #f4fbf7;
+  --color-secondary: #8f5f05;
+  --color-secondary-content: #fff9ec;
+  --color-accent: #f2b632;
+  --color-accent-content: #2c1f02;
+  --color-neutral: #1f2a25;
+  --color-neutral-content: #f4f3ec;
+  --color-info: #1f62a0;
+  --color-info-content: #f0f7fe;
+  --color-success: #1d7a45;
+  --color-success-content: #effaf3;
+  --color-warning: #8f5f05;
+  --color-warning-content: #fff9ec;
+  --color-error: #b3261e;
+  --color-error-content: #fff3f1;
+  --radius-selector: 0.375rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Night market: deep green-black with the same green, lifted for contrast */
+@plugin "daisyui/theme" {
+  name: "shopdesk-dark";
+  prefersdark: true;
+  color-scheme: dark;
+  --color-base-100: #101714;
+  --color-base-200: #18211d;
+  --color-base-300: #29352f;
+  --color-base-content: #edf1ea;
+  --color-primary: #4cc794;
+  --color-primary-content: #06241a;
+  --color-secondary: #e7b552;
+  --color-secondary-content: #2c1f02;
+  --color-accent: #f2b632;
+  --color-accent-content: #2c1f02;
+  --color-neutral: #29352f;
+  --color-neutral-content: #edf1ea;
+  --color-info: #7cb4e8;
+  --color-info-content: #08182a;
+  --color-success: #6ccf96;
+  --color-success-content: #06241a;
+  --color-warning: #e7b552;
+  --color-warning-content: #2c1f02;
+  --color-error: #f0857b;
+  --color-error-content: #2b0805;
+  --radius-selector: 0.375rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme {
+  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+body {
+  background: var(--color-base-100);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.page-shell {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .page-shell {
+    padding-inline: 1.5rem;
+  }
+}
+
+.section-gap {
+  padding-block: clamp(3rem, 2.5rem + 3vw, 5.5rem);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.25rem + 1.6vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.section-text {
+  margin-top: 0.6rem;
+  max-width: 42rem;
+  line-height: 1.65;
+  color: color-mix(in oklab, var(--color-base-content) 72%, transparent);
+}
+
+.btn {
+  font-weight: 600;
+}
+
+/* Prices and totals line up like figures on a till receipt */
+.figure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Signature detail: the torn edge of a till receipt, used on totals */
+.receipt {
+  position: relative;
+  background: var(--color-base-200);
+  padding-bottom: 1.75rem;
+  --tooth: 10px;
+  mask-image:
+    linear-gradient(#000 0 0),
+    conic-gradient(from -45deg at 50% 100%, #000 90deg, transparent 0);
+  mask-size: 100% calc(100% - var(--tooth)), calc(var(--tooth) * 2) var(--tooth);
+  mask-position: top, bottom;
+  mask-repeat: no-repeat, repeat-x;
+}
+
+.receipt-rule {
+  border-top: 1px dashed color-mix(in oklab, var(--color-base-content) 30%, transparent);
+}
+
+/* Product photos have clear backgrounds and sit on one soft tile in both themes */
+.product-tile {
+  background: #f1efe8;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .receipt {
+    mask-image: none;
+    background: none;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+}
