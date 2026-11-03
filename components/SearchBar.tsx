@@ -16,6 +16,18 @@ interface Props {
 
 // Navbar search: suggestions appear while typing, Enter opens the full results on the Shop page.
 // The key starts the box fresh whenever the address changes, such as "Clear filters" on the Shop page.
+// Same size as the real box. Shown while a prebuilt page waits to read its address, so nothing jumps.
+export function SearchBarPlaceholder({ className = "" }: { className?: string }) {
+  return (
+    <div className={className} aria-hidden="true">
+      <div className="input input-sm h-9 w-full rounded-full bg-base-200">
+        <Search className="size-4 opacity-60" />
+        <span className="text-base-content/50">Search phones, cars, clothes...</span>
+      </div>
+    </div>
+  );
+}
+
 export default function SearchBar(props: Props) {
   const pathname = usePathname();
   const params = useSearchParams();

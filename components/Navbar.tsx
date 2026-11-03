@@ -9,7 +9,7 @@ import { useCart } from "@/lib/cart";
 import AccountMenu from "./AccountMenu";
 import AuthLink from "./AuthLink";
 import Logo from "./Logo";
-import SearchBar from "./SearchBar";
+import SearchBar, { SearchBarPlaceholder } from "./SearchBar";
 import ThemeToggle from "./ThemeToggle";
 
 const LINKS = [
@@ -42,7 +42,7 @@ export default function Navbar() {
         </ul>
 
         {/* useSearchParams needs a Suspense boundary so pages can still be prerendered */}
-        <Suspense><SearchBar className="hidden max-w-md flex-1 lg:block" /></Suspense>
+        <Suspense fallback={<SearchBarPlaceholder className="hidden max-w-md flex-1 lg:block" />}><SearchBar className="hidden max-w-md flex-1 lg:block" /></Suspense>
 
         <div className="flex items-center gap-1.5">
           <ThemeToggle />
@@ -67,7 +67,7 @@ export default function Navbar() {
       </nav>
 
       <div className="page-shell pb-3 lg:hidden">
-        <Suspense><SearchBar onDone={() => setMobileOpen(false)} /></Suspense>
+        <Suspense fallback={<SearchBarPlaceholder />}><SearchBar onDone={() => setMobileOpen(false)} /></Suspense>
       </div>
 
       {mobileOpen && (
