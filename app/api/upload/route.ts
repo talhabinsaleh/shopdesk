@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getUser } from "@/lib/session";
+import { getUser } from "@/lib/server/session";
 
 const MAX_SIZE = 5 * 1024 * 1024;
 

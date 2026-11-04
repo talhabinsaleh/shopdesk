@@ -1,5 +1,5 @@
-import ProductForm from "@/components/manage/ProductForm";
-import { PageHeader } from "@/components/manage/ui";
+import ProductForm from "@/components/client/manage/ProductForm";
+import { PageHeader } from "@/components/client/manage/ui";
 
 export default function NewProductPage() {
   return (

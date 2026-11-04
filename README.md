@@ -55,13 +55,30 @@ Seeding replaces all products, categories and orders, so only run it on a demo d
 
 ## Project layout
 
+The folders show where each part runs. **SSR** pages are built on the server, so they arrive ready with their data. **CSR** pages load in the browser and then fetch their data from `app/api`. Names in brackets, like `(ssr)`, only group the folders and never appear in the web address.
+
 ```
-app/            pages, plus app/api for the backend routes
-components/     interface pieces
-lib/            login, cart and helpers
-lib/server/     database code used only on the server
-scripts/seed.ts sample data
-public/         product photos
+app/
+  (store)/                shop layout: navbar and footer
+    (ssr)/                server-rendered (SSR): home, products, product page, login, register
+    (csr)/                client-rendered (CSR): cart, checkout, my orders
+  manage/                 admin dashboard, client-rendered (CSR)
+  api/                    the backend: JSON routes that read and write MongoDB
+
+components/
+  client/                 "use client" pieces that run in the browser (forms, navbar, cart buttons)
+    manage/               admin dashboard pieces
+  server/                 pieces rendered only on the server (footer, product card)
+  shared/                 small pieces used on both sides (status badge, totals, empty state)
+
+lib/
+  client/                 browser code: API calls, cart, login client
+  server/                 server only: database, auth, sessions, catalog and order logic
+  shared/                 types, formatting and validation used on both sides
+
+proxy.ts                  sends logged-out visitors to the login page
+scripts/seed.ts           sample data
+public/                   product photos
 ```
 
 ## Credits

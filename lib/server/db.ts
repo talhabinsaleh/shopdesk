@@ -1,6 +1,6 @@
 import "server-only";
 import type { ClientSession, Collection, Db, Document, ObjectId } from "mongodb";
-import { client } from "../mongodb";
+import { client } from "@/lib/server/mongodb";
 
 export const ORDER_STATUSES = ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled"] as const;
 export type OrderStatus = (typeof ORDER_STATUSES)[number];

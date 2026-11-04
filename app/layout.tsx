@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree, IBM_Plex_Mono, Sora } from "next/font/google";
 import type { ReactNode } from "react";
-import Providers from "@/components/Providers";
+import Providers from "@/components/client/Providers";
 import "./globals.css";
 
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });

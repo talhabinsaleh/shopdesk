@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Avatar from "@/components/Avatar";
-import { ErrorNote, PageHeader, Pager, SearchBox, Table, TableSkeleton } from "@/components/manage/ui";
-import { formatDate, money } from "@/lib/format";
-import type { CustomerRow, Paged } from "@/lib/types";
-import { useData } from "@/lib/use-data";
+import Avatar from "@/components/client/Avatar";
+import { ErrorNote, PageHeader, Pager, SearchBox, Table, TableSkeleton } from "@/components/client/manage/ui";
+import { formatDate, money } from "@/lib/shared/format";
+import type { CustomerRow, Paged } from "@/lib/shared/types";
+import { useData } from "@/lib/client/use-data";
 
 export default function CustomersPage() {
   const [search, setSearch] = useState("");

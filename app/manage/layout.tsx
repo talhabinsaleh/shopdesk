@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
-import ManageShell from "@/components/manage/ManageShell";
-import { requireUser } from "@/lib/session";
+import ManageShell from "@/components/client/manage/ManageShell";
+import { requireUser } from "@/lib/server/session";
 
 export const metadata: Metadata = { title: "Dashboard" };
 

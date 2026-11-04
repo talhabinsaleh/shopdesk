@@ -3,11 +3,11 @@
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
-import ConfirmModal from "@/components/ConfirmModal";
-import { ErrorNote, Field, ImageField, Modal, PageHeader, TableSkeleton } from "@/components/manage/ui";
-import { api, errorMessage } from "@/lib/api";
-import type { Category } from "@/lib/types";
-import { useData } from "@/lib/use-data";
+import ConfirmModal from "@/components/client/ConfirmModal";
+import { ErrorNote, Field, ImageField, Modal, PageHeader, TableSkeleton } from "@/components/client/manage/ui";
+import { api, errorMessage } from "@/lib/client/api";
+import type { Category } from "@/lib/shared/types";
+import { useData } from "@/lib/client/use-data";
 
 function CategoryForm({ category, onDone }: { category: Category | null; onDone: (saved: boolean) => void }) {
   const [name, setName] = useState(category?.name ?? "");

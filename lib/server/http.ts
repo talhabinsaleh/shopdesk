@@ -2,7 +2,7 @@ import "server-only";
 import { ObjectId } from "mongodb";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { auth } from "../auth";
+import { auth } from "@/lib/server/auth";
 
 export class HttpError extends Error {
   constructor(public status: number, message: string) {

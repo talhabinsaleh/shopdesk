@@ -1,6 +1,6 @@
 import "server-only";
-import { collections } from "./db";
-import { asObjectId, HttpError, imageUrl, number, optionalText, text } from "./http";
+import { collections } from "@/lib/server/db";
+import { asObjectId, HttpError, imageUrl, number, optionalText, text } from "@/lib/server/http";
 
 export const LOW_STOCK = 5;
 

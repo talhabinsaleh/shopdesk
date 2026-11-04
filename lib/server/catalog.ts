@@ -1,7 +1,7 @@
 import "server-only";
 import { ObjectId, type Filter, type Sort } from "mongodb";
-import { collections, type ProductDoc } from "./db";
-import { asObjectId, escapeRegex, HttpError, pageOf, paging } from "./http";
+import { collections, type ProductDoc } from "@/lib/server/db";
+import { asObjectId, escapeRegex, HttpError, pageOf, paging } from "@/lib/server/http";
 
 // Used by both the public API routes and the shop pages
 

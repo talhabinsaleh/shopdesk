@@ -2,12 +2,12 @@
 
 import { Banknote, Clock, Repeat, Smartphone, Users } from "lucide-react";
 import Link from "next/link";
-import { ErrorNote, PageHeader, StatCard, TableSkeleton } from "@/components/manage/ui";
-import SalesChart from "@/components/manage/SalesChart";
-import StatusBadge from "@/components/StatusBadge";
-import { formatDateTime, money } from "@/lib/format";
-import type { Overview } from "@/lib/types";
-import { useData } from "@/lib/use-data";
+import { ErrorNote, PageHeader, StatCard, TableSkeleton } from "@/components/client/manage/ui";
+import SalesChart from "@/components/client/manage/SalesChart";
+import StatusBadge from "@/components/shared/StatusBadge";
+import { formatDateTime, money } from "@/lib/shared/format";
+import type { Overview } from "@/lib/shared/types";
+import { useData } from "@/lib/client/use-data";
 
 export default function OverviewPage() {
   const { data, error, loading } = useData<Overview>("/api/manage/overview");
@@ -21,10 +21,10 @@ export default function OverviewPage() {
         <>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-5">
             <StatCard label="Sales today" value={money(data.salesToday)} icon={Banknote} />
-            <StatCard label="New orders" value={data.pending} icon={Clock} tone={data.pending ? "warning" : undefined} />
-            <StatCard label="Payments to check" value={data.payments} icon={Smartphone} tone={data.payments ? "warning" : undefined} />
-            <StatCard label="Exchange requests" value={data.exchanges} icon={Repeat} tone={data.exchanges ? "warning" : undefined} />
-            <StatCard label="Customers" value={data.customers} icon={Users} />
+            <StatCard label="New orders" value={data.pending} icon={Clock} href="/manage/orders?show=new" tone={data.pending ? "warning" : undefined} />
+            <StatCard label="Payments to check" value={data.payments} icon={Smartphone} href="/manage/orders?show=payments" tone={data.payments ? "warning" : undefined} />
+            <StatCard label="Exchange requests" value={data.exchanges} icon={Repeat} href="/manage/orders?show=exchanges" tone={data.exchanges ? "warning" : undefined} />
+            <StatCard label="Customers" value={data.customers} icon={Users} href="/manage/customers" />
           </div>
 
           <SalesChart days={data.days} title="Sales, last 14 days" />

@@ -4,12 +4,12 @@ import { Pencil, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-import ConfirmModal from "@/components/ConfirmModal";
-import { ErrorNote, PageHeader, Pager, SearchBox, Table, TableSkeleton } from "@/components/manage/ui";
-import { api, errorMessage } from "@/lib/api";
-import { money } from "@/lib/format";
-import type { Paged, Product } from "@/lib/types";
-import { useData } from "@/lib/use-data";
+import ConfirmModal from "@/components/client/ConfirmModal";
+import { ErrorNote, PageHeader, Pager, SearchBox, Table, TableSkeleton } from "@/components/client/manage/ui";
+import { api, errorMessage } from "@/lib/client/api";
+import { money } from "@/lib/shared/format";
+import type { Paged, Product } from "@/lib/shared/types";
+import { useData } from "@/lib/client/use-data";
 
 export default function ManageProductsPage() {
   const [search, setSearch] = useState("");

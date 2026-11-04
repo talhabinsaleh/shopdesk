@@ -1,7 +1,7 @@
 import "server-only";
 import type { ClientSession, ObjectId, PushOperator } from "mongodb";
-import { collections, type OrderDoc, type OrderStatus } from "./db";
-import { HttpError } from "./http";
+import { collections, type OrderDoc, type OrderStatus } from "@/lib/server/db";
+import { HttpError } from "@/lib/server/http";
 
 // The status each order can move to next. Cancelling is allowed until the parcel ships.
 const NEXT: Record<OrderStatus, OrderStatus[]> = {

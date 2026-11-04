@@ -1,10 +1,10 @@
 "use client";
 
 import { use } from "react";
-import ProductForm from "@/components/manage/ProductForm";
-import { ErrorNote, PageHeader, TableSkeleton } from "@/components/manage/ui";
-import type { Product } from "@/lib/types";
-import { useData } from "@/lib/use-data";
+import ProductForm from "@/components/client/manage/ProductForm";
+import { ErrorNote, PageHeader, TableSkeleton } from "@/components/client/manage/ui";
+import type { Product } from "@/lib/shared/types";
+import { useData } from "@/lib/client/use-data";
 
 export default function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);

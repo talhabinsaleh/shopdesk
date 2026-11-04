@@ -10,7 +10,11 @@ export const GET = route(async (request) => {
   const filter: Filter<OrderDoc> = {};
   const status = params.get("status") as OrderStatus;
   if (ORDER_STATUSES.includes(status)) filter.status = status;
-  if (params.get("exchange") === "Requested") filter["exchange.status"] = "Requested";
+  // Quick filters behind the cards on the Overview page
+  const show = params.get("show");
+  if (show === "new") filter.status = "Pending";
+  if (show === "payments") Object.assign(filter, { "payment.status": "Awaiting check", status: { $ne: "Cancelled" } });
+  if (show === "exchanges") filter["exchange.status"] = "Requested";
   const search = params.get("search")?.trim();
   if (search) {
     const pattern = { $regex: escapeRegex(search), $options: "i" };
