@@ -2,34 +2,20 @@
   "name": "shopdesk",
   "version": "1.0.0",
   "private": true,
+  "description": "ShopDesk online shop: a Next.js client and an Express server in one repo",
+  "workspaces": ["client", "server"],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "seed": "tsx scripts/seed.ts"
-  },
-  "dependencies": {
-    "@better-auth/mongo-adapter": "^1.7.15",
-    "better-auth": "^1.7.15",
-    "daisyui": "^5.7.50",
-    "lucide-react": "^1.66.0",
-    "mongodb": "^7.8.0",
-    "next": "^16.4.3",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "server-only": "^0.0.1",
-    "sonner": "^2.0.8"
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w server && npm run build -w client",
+    "start": "concurrently -n server,client -c blue,green \"npm run start -w server\" \"npm run start -w client\"",
+    "typecheck": "npm run typecheck -w server && npm run typecheck -w client",
+    "lint": "npm run lint -w client",
+    "seed": "npm run seed -w server"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
-    "@types/node": "^20.19.43",
-    "@types/react": "^19.3.0",
-    "@types/react-dom": "^19.3.0",
-    "eslint": "^9.39.5",
-    "eslint-config-next": "^16.4.3",
-    "tailwindcss": "^4.3.3",
-    "tsx": "^4.23.15",
-    "typescript": "^5.9.3"
+    "concurrently": "^9.2.1"
+  },
+  "engines": {
+    "node": ">=20.12"
   }
 }

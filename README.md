@@ -24,21 +24,53 @@ The login page has a button that fills in each of these.
 
 ## Stack
 
-One Next.js app: the pages and the API (`app/api`) live together, with MongoDB, BetterAuth, TypeScript, Tailwind CSS, DaisyUI and imgbb.
+- **client/**: Next.js website, with React, TypeScript, Tailwind CSS and DaisyUI
+- **server/**: Express API, with MongoDB, BetterAuth (email and Google login) and imgbb uploads
+
+## Project layout
+
+```
+shopdesk/
+├── client/                    Next.js website (what the visitor sees)
+│   ├── app/
+│   │   ├── (store)/(ssr)/     server-rendered (SSR): home, products, product page, login, register
+│   │   ├── (store)/(csr)/     client-rendered (CSR): cart, checkout, my orders
+│   │   └── manage/            admin dashboard, client-rendered (CSR)
+│   ├── components/            interface pieces (manage/ = admin dashboard)
+│   ├── lib/                   API calls, cart, login client, formatting
+│   ├── public/                product photos
+│   ├── proxy.ts               sends logged-out visitors to the login page
+│   └── next.config.ts         passes every /api request on to the server
+├── server/                    Express API (the backend)
+│   ├── src/
+│   │   ├── config/            environment, MongoDB and BetterAuth setup
+│   │   ├── middleware/        login checks (requireUser, requireAdmin) and error handling
+│   │   ├── routes/            products, categories, orders, manage (admin), upload, settings
+│   │   ├── lib/               catalog, order status and form checks
+│   │   ├── app.ts             the Express app
+│   │   └── index.ts           starts it on port 5000
+│   └── scripts/seed.ts        sample data and demo logins
+├── .env.example               every setting, for both apps
+└── package.json               runs both apps together
+```
+
+Names in brackets, like `(ssr)`, only group the folders and never appear in the web address.
+
+**How the two talk:** the browser only ever opens the website. `client/next.config.ts` passes every `/api/...` request on to the Express server, so login cookies stay on the website's own address. SSR pages ask the server for their data before the page is sent, and CSR pages fetch it from `/api` in the browser.
 
 ## Run it locally
 
-You need Node.js 20 or newer and a free [MongoDB Atlas](https://www.mongodb.com/atlas) database.
+You need Node.js 20.12 or newer and a free [MongoDB Atlas](https://www.mongodb.com/atlas) database.
 
 ```bash
 git clone https://github.com/talhabinsaleh/shopdesk.git
 cd shopdesk
-npm install
-cp .env.example .env.local   # then fill in MONGODB_URI and BETTER_AUTH_SECRET
-npm run dev                  # http://localhost:3000
+npm install          # installs client and server together
+cp .env.example .env # then fill in MONGODB_URI and BETTER_AUTH_SECRET
+npm run dev          # server on http://localhost:5000, website on http://localhost:3000
 ```
 
-To fill an empty database with the sample shop and the demo logins, keep `npm run dev` running and in a second terminal run:
+To fill an empty database with the sample shop and the demo logins, run:
 
 ```bash
 npm run seed
@@ -48,38 +80,12 @@ Seeding replaces all products, categories and orders, so only run it on a demo d
 
 ## Deploy on Vercel
 
-1. Import the repo on [vercel.com/new](https://vercel.com/new). No build settings are needed.
-2. Add the values from `.env.example` as environment variables, with `BETTER_AUTH_URL` set to your site's address.
+The two apps are deployed as two Vercel projects from this one repo.
+
+1. **Server:** import the repo on [vercel.com/new](https://vercel.com/new) and set the Root Directory to `server`. Add the server values from `.env.example`, with `BETTER_AUTH_URL` set to the **website's** address.
+2. **Website:** import the repo again with Root Directory `client`, and add `API_URL` set to the server's address.
 3. In MongoDB Atlas, allow access from anywhere (`0.0.0.0/0`) under Network Access.
-4. For Google login, add `https://YOUR-SITE/api/auth/callback/google` as a redirect URI on your Google OAuth client.
-
-## Project layout
-
-The folders show where each part runs. **SSR** pages are built on the server, so they arrive ready with their data. **CSR** pages load in the browser and then fetch their data from `app/api`. Names in brackets, like `(ssr)`, only group the folders and never appear in the web address.
-
-```
-app/
-  (store)/                shop layout: navbar and footer
-    (ssr)/                server-rendered (SSR): home, products, product page, login, register
-    (csr)/                client-rendered (CSR): cart, checkout, my orders
-  manage/                 admin dashboard, client-rendered (CSR)
-  api/                    the backend: JSON routes that read and write MongoDB
-
-components/
-  client/                 "use client" pieces that run in the browser (forms, navbar, cart buttons)
-    manage/               admin dashboard pieces
-  server/                 pieces rendered only on the server (footer, product card)
-  shared/                 small pieces used on both sides (status badge, totals, empty state)
-
-lib/
-  client/                 browser code: API calls, cart, login client
-  server/                 server only: database, auth, sessions, catalog and order logic
-  shared/                 types, formatting and validation used on both sides
-
-proxy.ts                  sends logged-out visitors to the login page
-scripts/seed.ts           sample data
-public/                   product photos
-```
+4. For Google login, add `https://YOUR-WEBSITE/api/auth/callback/google` as a redirect URI on your Google OAuth client.
 
 ## Credits
 
